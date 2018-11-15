@@ -1,0 +1,9 @@
+body {
+  padding: 50px;
+  background: url("https://images.pexels.com/photos/884454/pexels-photo-884454.jpeg?cs=srgb&dl=coffee-cup-desk-884454.jpg&fm=jpg") no-repeat center center fixed;
+  /* background: url("https://images.pexels.com/photos/442575/pexels-photo-442575.jpeg?cs=srgb&dl=coffee-keyboard-laptop-442575.jpg&fm=jpg") no-repeat center center fixed; */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
