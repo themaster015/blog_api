@@ -19,9 +19,7 @@ function registrar() {
     email: username, 
     password: password1
   }
-  
-  console.log(data);
-  
+    
   fetch("http://68.183.27.173:8080/register", {
     method: 'POST',
     body: JSON.stringify(data),

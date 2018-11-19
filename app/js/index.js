@@ -3,22 +3,10 @@ $(document).ready(function() {
     login();
   })
 
-  $('#register').click(function(){
-    register();
-  })
-})
+  var token = localStorage.getItem("blog_api_user_token");
 
-function login() {
-  var username = $("#username").val();
-  var password = $("#password").val();
-
-  if ("eduardo" === username && "1234" === password) {
-    alert('Bienvenido a Blog Api ' + username);
-  } else {
-    alert('Usuario y/o contraseña son incorrectos' + username);
+  if (token !== undefined && token !== null) {
+    alert('Usuario Logueado Redireccionando a Dashboard');
+    location.href = "dashboard.html";
   }
-}
-
-function register() {
-  alert('El Usuario Se va Registrar')
-}
+})

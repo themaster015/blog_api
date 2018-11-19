@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <script src="./assets/js/jquery-3.3.1.js"></script>
+  <script src="./app/js/login.js"></script>
   <script src="./app/js/index.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link rel="stylesheet" href="./app/css/general.css">
@@ -16,26 +17,14 @@
 
   <div class="container">
 
-    <div class="jumbotron">
-      <span class="text-center">
-        <h1 class="display-4">Bienvenido a Blog Api</h1>
-        <p class="lead">Proyecto Orientado a la creacion de blogs en el cual los usuarios pueden seguir sus blogs favoritos,
-          escribir el suyo entre otros.</p>
-      </span>
-      <div class="text-right">
-        <!-- <button type="button" class="btn btn-link" id="register">Registrarse</button> -->
-        <a href="register.html">Registrarse</a>
-      </div>
-    </div>
-
     <div class="container">
       <div class="row">
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 offset-md-3 offset-lg-3 offset-xl-4">
     
           <div class="card bg-light mb-3">
-            <div class="card-header">Inicio de Sesion</div>
+           <div class="card-header">Inicio de Sesion</div>
             <div class="card-body">
-    
+
               <form action="">
                 <div class="form-group">
                   <label for="username">Usuario</label>
@@ -46,8 +35,11 @@
                   <label for="password">Contraseña</label>
                   <input type="password" class="form-control" id="password" placeholder="Contraseña Usuario">
                 </div>
+
+                 
                 <div class="text-right">
-                  <button type="button" class="btn btn-primary" id="login">Login</button>
+                  <a href="register.html">Registrarse</a>
+                  <button type="button" class="btn btn-primary ml-5" id="login">Login</button>
                 </div>
               </form>
     
@@ -59,5 +51,4 @@
     </div>
   </div>
 </body>
-
 </html>
