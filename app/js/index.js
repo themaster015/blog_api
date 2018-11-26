@@ -1,5 +1,5 @@
-import { direccionApi, obtenerHeader } from "./constantes";
-import '../../app/css/general.css'
+// import { direccionApi, obtenerHeader } from "./constantes";
+// import '../../app/css/general.css'
 
 $(document).ready(function () {
   validarToken();
@@ -10,18 +10,18 @@ function validarToken() {
     .then(response => {
       
       if (response.ok) {
-        location.href = "/pages/dashboard.html";
+        location.href = "pages/dashboard.html";
         return;
       }
 
       redireccionarLogin();
     })
-    .catch(() => console.log(error));
+    .catch((error) => console.log(error));
 }
 
 function redireccionarLogin() {
   localStorage.removeItem("blog_api_user_token");
-  location.href = "/pages/login.html";
+  location.href = "pages/login.html";
 }
 
 

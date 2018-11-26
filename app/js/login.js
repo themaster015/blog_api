@@ -18,7 +18,7 @@ function login() {
     password: password,
   }
 
-  fetch("http://68.183.27.173:8080/login", {
+  fetch(direccionApi + "/login", {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {
@@ -26,9 +26,9 @@ function login() {
     }
   }).then(res => res.json())
   .then(response => {
-    var data = JSON.parse(JSON.stringify(response));
-    localStorage.setItem("blog_api_user_token", data.token);
-    location.href = "dashboard.html";
+      var data = JSON.parse(JSON.stringify(response));
+      localStorage.setItem("blog_api_user_token", data.token);
+      location.href = "dashboard.html";
   })
   .catch(error => {
     alert('El Usuario o la contraseña son Incorrectos')
