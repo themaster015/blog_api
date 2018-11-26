@@ -3,6 +3,12 @@ $(document).ready(function () {
   getPost();
 })
 
+function abrirInfoUsuario(userId) {
+  console.log('hola');
+  localStorage.setItem("blog_api_userId", userId); 
+  location.href ="userInfo.html";
+}
+
 function getPost() {
 
   var lista = $("#listaPost")
@@ -11,7 +17,7 @@ function getPost() {
     <div class="card mb-3">
       <div class="card-header">
         <div class="row">
-          <i class="{likePost} id="{likePostId}" fa-star fa-lg mt-1"></i> &nbsp 
+          <i class="{likePost} fa-star fa-lg mt-1 id="{likePostId}""></i> &nbsp 
           <h5><a href="#"> {titulo}</a></h5>
         </div>
       </div>
@@ -26,7 +32,7 @@ function getPost() {
         
         <div class="row">
           <div class="col-sm-6">
-            <h6 class="card-title">By: <a href="#">{user}</a> </h6>
+            <h6 class="card-title">By: <button class="btn btn-link" onclick="abrirInfoUsuario({userId})">{user}</button> </h6>
           </div>
 
           <div class="col-sm-6">
@@ -38,13 +44,11 @@ function getPost() {
         </div>
       </div>
 
-      <div class="card-footer text-muted">
-        2 days ago
+      <div class="card-footer text-muted text-right">
+        Creado en fecha: {fechaCreado}
       </div>
     </div>
   `
-  var token = localStorage.getItem("blog_api_user_token");
-
   fetch(direccionApi + "/post", obtenerHeader())
     .then(res => res.json())
     .then(response => {
@@ -53,26 +57,37 @@ function getPost() {
       for (var post of listaPosts) {
         var tamanoPost = post.body.length;
 
-        if (tamanoPost > 150) {
-          var tag = getTags(post.tags);
-          var item = itemPost;
-          item = item.replace('{titulo}', post.title);
-          item = item.replace('{cuerpo}', post.body);
-          item = item.replace('{user}', `${post.userName} (${post.userEmail})`)
-          item = item.replace('{likes}', post.likes);
-          item = item.replace('{tags}', tag);
-          item = item.replace('{likePostId}', `likePost${post.id}`);
+        var cuerpo = post.body;
 
-          if (post.liked) {
-            item = item.replace('{likePost}', 'fa'); 
-          } else {
-            item = item.replace('{likePost}', 'far'); 
-          }
-
-          lista.append(`<li>${item}</li>`);
+        if (tamanoPost > tamanoMinimoCuerpoPost) {
+          var cuerpo = post.body.substr(0, tamanoMinimoCuerpoPost) + '...';
         }
+
+        var tag = getTags(post.tags);        
+        var fecha = getDatePost(post.createdAt);
+
+        var item = itemPost.replace('{titulo}', post.title)
+        .replace('{cuerpo}', cuerpo)
+        .replace('{user}', `${post.userName} (${post.userEmail})`)
+        .replace('{likes}', post.likes)
+        .replace('{tags}', tag)
+        .replace('{likePostId}', `likePost${post.id}`)
+        .replace('{fechaCreado}', fecha)
+        .replace('{userId}', post.userId);
+
+        if (post.liked) {
+          item = item.replace('{likePost}', 'fa');
+        } else {
+          item = item.replace('{likePost}', 'far');
+        }
+        
+        if (tamanoPost > 150) {
+          lista.append(`<li>${item}</li>`);
+        }        
+
       }
-    }).catch((error) => console.log(error));
+    })
+    .catch((error) => console.log(error));
 }
 
 function getTags(tags) {
