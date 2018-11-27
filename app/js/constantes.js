@@ -10,6 +10,7 @@ function obtenerHeader() {
   }
 }
 
+
 function getDatePost(DateTimeStamp) {
 
   let date = new Date(DateTimeStamp);
