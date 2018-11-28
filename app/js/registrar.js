@@ -27,7 +27,9 @@ function registrar() {
       'Content-Type': 'application/json'
     }
   }).then( res => res.json())
-  .then(response => console.log('Succes:', JSON.stringify(response)))
+  .then(() => {
+    location.href = "login.html"
+  })
   .catch(error => console.error('error', error));
 }
 

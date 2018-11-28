@@ -6,13 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <!-- <link rel="icon" href="../../../../favicon.ico"> -->
 
     <script src="../assets/js/jquery-3.3.1.js"></script>
-    <script src="../app/js/dashboard.js"></script>
+    <script src="../app/js/constantes.js" ></script>
     <script src="../app/js/menu.js"></script>
 
-    <title>Blog Api</title>
+    <title>Blog Api / Creacion de Posts</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">       
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -21,7 +20,7 @@
   <body>
 
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand" href="#">Blog Api</a>
+      <a class="navbar-brand" id="btnDashboard" href="javascript:;">Blog Api</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -41,6 +40,7 @@
               <a class="nav-link" id="btnCerrarSecion" href="javascript:;">Cerrar Sesion</a>
             </li>
         </ul>
+       
       </div>
     </nav>
 
@@ -48,34 +48,34 @@
 
       <div class="jumbotron">
         <div class="container">
-          <h1 class="display-3">Bienvenido a Blog Api</h1>
-          <p>Proyecto Orientado a la creacion de blogs en el cual los usuarios pueden seguir sus blogs favoritos,
-              escribir el suyo entre otros.</p>
         </div>
       </div>
 
       <div class="container">
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="jumbotron">
-              <h1 class="display-4">Listado De Post</h1>
-              <p class="lead">Vista de todos los posts que se han registrado en la Aplicación</p>
-              <hr class="my-4">
-              <a class="btn btn-primary btn-lg" type="button" id="btnPost">Acceder</a>
-            </div>
+        <div class="text-center">
+          <h1 class="display-3">Nuevo Post</h1>  
+        </div>        
+
+        <form>
+          <div class="form-group">
+            <label for="tituloPost">Título</label>
+            <input type="email" class="form-control" id="tituloPost" aria-describedby="tituloHelp">
+            <small id="tituloHelp" class="form-text text-muted">Introduzca un título que describa de la mejor forma su post</small>
+          </div>
+          
+          <div class="form-group">
+            <label for="cuerpoPost">Detalles del Post</label>
+            <textarea class="form-control" id="cuerpoPost" rows="5" aria-describedby="cuerpoHelp"></textarea>
+            <small id="cuerpoHelp" class="form-text text-muted">Introduzca al menos un post con 200 caracteres</small>
           </div>
 
-          <div class="col-sm-6">
-            <div class="jumbotron">
-              <h1 class="display-4">Creación de Post</h1>
-              <p class="lead">Presentación de Formulario Para la Creacion de Nuevos Posts</p>
-              <hr class="my-4">
-              <a class="btn btn-primary btn-lg" type="button" id="btnNuevoPost">Acceder</a>
-            </div>
-          </div>
 
-         
-        </div>
+          <div class="">
+            <button type="submit" class="btn btn-secondary">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+        </form>
+              
       </div>
 
     </main>

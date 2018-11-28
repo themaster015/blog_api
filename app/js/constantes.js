@@ -10,6 +10,16 @@ function obtenerHeader() {
   }
 }
 
+function obtenerHeaderMethot(metodo) {
+  return {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem("blog_api_user_token")
+    },
+    method: metodo
+  }
+}
+
 
 function getDatePost(DateTimeStamp) {
 

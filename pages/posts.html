@@ -6,11 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <!-- <link rel="icon" href="../../../../favicon.ico"> -->
 
     <script src="../assets/js/jquery-3.3.1.js"></script>
-    <script src="../app/js/dashboard.js"></script>
+    <script src="../app/js/constantes.js" ></script>
+    <script src="../app/js/post.js"></script>
     <script src="../app/js/menu.js"></script>
+
+    <link rel="stylesheet" href="../app/css/hr.css">
 
     <title>Blog Api</title>
 
@@ -21,7 +23,7 @@
   <body>
 
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand" href="#">Blog Api</a>
+      <a class="navbar-brand" id="btnDashboard" href="javascript:;">Blog Api</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -41,6 +43,10 @@
               <a class="nav-link" id="btnCerrarSecion" href="javascript:;">Cerrar Sesion</a>
             </li>
         </ul>
+        <!-- <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form> -->
       </div>
     </nav>
 
@@ -48,34 +54,26 @@
 
       <div class="jumbotron">
         <div class="container">
-          <h1 class="display-3">Bienvenido a Blog Api</h1>
-          <p>Proyecto Orientado a la creacion de blogs en el cual los usuarios pueden seguir sus blogs favoritos,
-              escribir el suyo entre otros.</p>
         </div>
       </div>
 
       <div class="container">
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="jumbotron">
-              <h1 class="display-4">Listado De Post</h1>
-              <p class="lead">Vista de todos los posts que se han registrado en la Aplicación</p>
-              <hr class="my-4">
-              <a class="btn btn-primary btn-lg" type="button" id="btnPost">Acceder</a>
-            </div>
-          </div>
-
-          <div class="col-sm-6">
-            <div class="jumbotron">
-              <h1 class="display-4">Creación de Post</h1>
-              <p class="lead">Presentación de Formulario Para la Creacion de Nuevos Posts</p>
-              <hr class="my-4">
-              <a class="btn btn-primary btn-lg" type="button" id="btnNuevoPost">Acceder</a>
-            </div>
-          </div>
-
-         
+        <div class="text-center">
+          <h1 class="display-3">Listado de Post</h1>  
         </div>
+        
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></span>
+          </div>
+          <input type="text" class="form-control" placeholder="Busqueda de Post">
+          
+          <div class="input-group-append">
+            <button class="btn btn-primary">Buscar</button>
+          </div>
+        </div>
+        
+        <ul class="list-group" style="list-style: none" id="listaPost"></ul>       
       </div>
 
     </main>

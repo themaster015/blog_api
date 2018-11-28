@@ -26,5 +26,5 @@ function getUserInfo() {
 }
 
 function volverAtras() {
-  location.href="dashboard.html";
+  location.href="posts.html";
 }

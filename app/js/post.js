@@ -2,8 +2,10 @@
 $(document).ready(function () {
   $("body").on("click", ".likedStar", function (e) {
     e.preventDefault();
-    var post = $.trim($(this).attr("postid"));
-    var tieneLike = $.trim($(this).attr("tieneLike"));
+
+    var post = parseInt($.trim($(this).attr("postid")));
+    var tieneLike = $(`#likePost${post}`).hasClass("fas");
+
     evaluarLike(post, tieneLike);
   })
 
@@ -11,9 +13,7 @@ $(document).ready(function () {
 })
 
 function evaluarLike(post, tieneLike) {
-  console.log(tieneLike);
-  console.log(post);
-  if (tieneLike === 1) {
+  if (tieneLike === true) {
     quitarLike(post);
   } else {
     generarLike(post);
@@ -21,31 +21,35 @@ function evaluarLike(post, tieneLike) {
 }
 
 function generarLike(postId) {
-  fetch(direccionApi + `/post/${postId}/like`, {
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem("blog_api_user_token")
-    },
-    method: 'PUT'
-  }).then(response => {
-    if (response.ok) {
-      console.log('like puesto');
-    }
-  }).catch((error) => console.log(error));
+  fetch(direccionApi + `/post/${postId}/like`, obtenerHeaderMethot('PUT'))
+    .then(response => {
+      if (response.ok) {
+        $(`#likePost${postId}`).removeClass("far").addClass("fas");
+        reactualizarLikes(postId, 1);
+      }
+    })
+    .catch((error) => console.log(error));
 }
 
 function quitarLike(postId) {
-  fetch(direccionApi + `/post/${postId}/like`, {
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem("blog_api_user_token")
-    },
-    method: 'DELETE'
-  }).then(response => {
-    if (response.ok) {
-      console.log('like quitado');
-    }
-  }).catch((error) => console.log(error));
+  fetch(direccionApi + `/post/${postId}/like`, obtenerHeaderMethot('DELETE'))
+    .then(response => {
+      if (response.ok) {
+        $(`#likePost${postId}`).removeClass("fas").addClass("far");
+        reactualizarLikes(postId, -1);
+      }
+    }).catch((error) => console.log(error));
+}
+
+function reactualizarLikes(postId, cantidad) {
+ debugger;
+  var likes = $(`#likesCount${postId}`).text();
+
+  var cantlikes = likes.replace("likes","");
+  cantlikes = parseInt(cantlikes);
+  cantlikes = cantlikes + cantidad;
+
+  $(`#likesCount${postId}`).text(cantlikes + " likes ");
 }
 
 function abrirInfoUsuario(userId) {
@@ -53,16 +57,23 @@ function abrirInfoUsuario(userId) {
   location.href = "userInfo.html";
 }
 
+function abrirInfoPost(postId) {
+  debugger;
+  localStorage.setItem("blog_api_postId", postId);
+  location.href = "postInfo.html";
+}
+
 function getPost() {
 
   var lista = $("#listaPost")
 
   var itemPost = `
-    <div class="card mb-3">
-      <div class="card-header">
+    <div class="card border-primary mb-3">
+      <div class="card-header bg-primary">
         <div class="row">
-          <i postid="{postId}" tieneLike={tieneLike} class="{likePost} fa-star fa-lg mt-1 likedStar id="{likePostId}" "></i> &nbsp 
-          <h5><a href="#"> {titulo}</a></h5>
+          <i postid="{postId}" class="{likePost} fa-heart fa-lg mt-1 likedStar"  style="color:white" id="{likePostId}"></i> &nbsp 
+          <h5><a style="color:white" href="#">{titulo}</a></h5>
+          <h5><button class="btn btn-link" onclick="abrirInfoPost({postId})">{titulo}</button></h5>
         </div>
       </div>
 
@@ -81,8 +92,8 @@ function getPost() {
 
           <div class="col-sm-6">
             <div class="text-right">
-              <i class="far fa-star"></i>
-              <p>{likes} stars</p>
+              <i class="fas fa-thumbs-up" style="color:blue"></i>
+              <p id="{likesCount}" style="color:blue">{likes} likes</p>
             </div>
           </div>
         </div>
@@ -92,6 +103,8 @@ function getPost() {
         Creado en fecha: {fechaCreado}
       </div>
     </div>
+
+    <hr>
   `
   fetch(direccionApi + "/post", obtenerHeader())
     .then(res => res.json())
@@ -115,17 +128,21 @@ function getPost() {
           .replace('{user}', `${post.userName} (${post.userEmail})`)
           .replace('{likes}', post.likes)
           .replace('{tags}', tag)
-          .replace('{likePostId}', `likePost${post.id}`)
+          .replace('{likePostId}', $.trim(`likePost${post.id}`))
+          .replace('{postId}', `${post.id}`)
           .replace('{postId}', `${post.id}`)
           .replace('{fechaCreado}', fecha)
-          .replace('{userId}', post.userId);
+          .replace('{userId}', post.userId)
+          .replace('{likesCount}', `likesCount${post.id}`);
 
         if (post.liked) {
-          item = item.replace('{likePost}', 'fa');
-          item = item.replace('{tieneLike}','1');
+          item = item
+            .replace('{likePost}', 'fas')
+            .replace('{colorHeart}', $.trim(`style="color:red"`))
         } else {
-          item = item.replace('{likePost}', 'far');
-          item = item.replace('{tieneLike}','0')
+          item = item
+            .replace('{likePost}', 'far')
+            .replace('{colorHeart}', '')
         }
 
         if (tamanoPost > 150) {
@@ -139,7 +156,7 @@ function getPost() {
 
 function getTags(tags) {
 
-  var htmlTag = `<span class="badge badge-pill badge-primary">{tag}</span> &nbsp`
+  var htmlTag = `<span class="badge badge-pill badge-success">{tag}</span> &nbsp`
   var htmlTag2 = '';
   var listaTags = tags;
   var tag = ''
