@@ -7,10 +7,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <script src="../assets/js/sweetalert2.all.min.js"></script>
     <script src="../assets/js/jquery-3.3.1.js"></script>
     <script src="../app/js/constantes.js" ></script>
+    <script src="../app/js/createPost.js"></script>
     <script src="../app/js/menu.js"></script>
-
+  
     <title>Blog Api / Creacion de Posts</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">       
@@ -56,31 +58,47 @@
           <h1 class="display-3">Nuevo Post</h1>  
         </div>        
 
-        <form>
-          <div class="form-group">
-            <label for="tituloPost">Título</label>
-            <input type="email" class="form-control" id="tituloPost" aria-describedby="tituloHelp">
-            <small id="tituloHelp" class="form-text text-muted">Introduzca un título que describa de la mejor forma su post</small>
-          </div>
-          
-          <div class="form-group">
-            <label for="cuerpoPost">Detalles del Post</label>
-            <textarea class="form-control" id="cuerpoPost" rows="5" aria-describedby="cuerpoHelp"></textarea>
-            <small id="cuerpoHelp" class="form-text text-muted">Introduzca al menos un post con 200 caracteres</small>
-          </div>
-
-
-          <div class="">
-            <button type="submit" class="btn btn-secondary">Cancelar</button>
-            <button type="submit" class="btn btn-primary">Guardar</button>
-          </div>
-        </form>
+        <div class="card">
+          <div class="card-body">
+            <form>
+              <div class="form-group">
+                <label for="tituloPost">Título</label>
+                <input type="email" class="form-control" id="tituloPost" aria-describedby="tituloHelp">
+                <small id="tituloHelp" class="form-text text-muted">Introduzca un título que describa de la mejor forma su post</small>
+              </div>
               
+              <div class="form-group">
+                <label for="cuerpoPost">Detalles del Post</label>
+                <textarea class="form-control" id="cuerpoPost" rows="5" aria-describedby="cuerpoHelp"></textarea>
+                <small id="cuerpoHelp" class="form-text text-muted">Introduzca al menos un post con 200 caracteres</small>
+              </div>
+    
+              <div class="form-group">
+                <label for="tagsPost">TAGS</label>
+                <i id="btnAgregarTag" class="fa fa-plus-circle fa-lg" style="color: green; cursor: pointer; float: right;" ></i>
+                <input class="form-control" id="tagsPost" aria-describedby="tituloHelp">
+                <small id="tituloHelp" class="form-text text-muted">Introduzca tags que le ayuden a Identificar el Post</small>
+              </div>
+              
+              <div class="card mt-2 mb-2">
+                <div class="card-body">
+                  <span id="tagsDelPost"></span>
+                </div>
+              </div>
+    
+              <div class="">
+                <button type="button" id="btnCancelarPost" class="btn btn-secondary">Cancelar</button>
+                <button type="button" id="btnGuardarPost" class="btn btn-primary">Guardar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+                      
       </div>
 
     </main>
 
-    <footer class="container">
+    <footer class="container mt-5">
       <p>&copy; Itla Proyect 2018-2019</p>
     </footer>
 

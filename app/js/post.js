@@ -42,7 +42,6 @@ function quitarLike(postId) {
 }
 
 function reactualizarLikes(postId, cantidad) {
- debugger;
   var likes = $(`#likesCount${postId}`).text();
 
   var cantlikes = likes.replace("likes","");
@@ -58,7 +57,6 @@ function abrirInfoUsuario(userId) {
 }
 
 function abrirInfoPost(postId) {
-  debugger;
   localStorage.setItem("blog_api_postId", postId);
   location.href = "postInfo.html";
 }
@@ -66,14 +64,12 @@ function abrirInfoPost(postId) {
 function getPost() {
 
   var lista = $("#listaPost")
-
   var itemPost = `
     <div class="card border-primary mb-3">
       <div class="card-header bg-primary">
         <div class="row">
-          <i postid="{postId}" class="{likePost} fa-heart fa-lg mt-1 likedStar"  style="color:white" id="{likePostId}"></i> &nbsp 
-          <h5><a style="color:white" href="#">{titulo}</a></h5>
-          <h5><button class="btn btn-link" onclick="abrirInfoPost({postId})">{titulo}</button></h5>
+          <i postid="{postId}" class="{likePost} fa-heart fa-lg mt-3 likedStar"  style="color:white" id="{likePostId}"></i> &nbsp 
+          <button class="btn btn-link" onclick="abrirInfoPost({postId})"><h4 style="color:white">{titulo}</h4></button>
         </div>
       </div>
 
