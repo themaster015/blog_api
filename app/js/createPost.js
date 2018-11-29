@@ -1,3 +1,6 @@
+
+var listadoTags = [];
+
 $(document).ready(function () {
   $("#btnDashboard").click(function () {
     goDashboard();
@@ -35,7 +38,7 @@ function cancelarPost() {
 function agregarTag() {
   // var htmlTag = `<span class="badge badge-success badge-lg">{tag}</span> &nbsp`
   var htmlTag = `<span class="label label-default"><i class="ml-0 fa fa-times"></i> {tag}</span> &nbsp`
-  var htmlTag2 = ''; 
+  var htmlTag2 = '';
   var tag = ''
 
   var tags = $("#tagsPost").val();
@@ -55,21 +58,55 @@ function agregarTag() {
     tag = htmlTag;
     tag = tag.replace('{tag}', tags)
     htmlTag2 += tag;
+    listadoTags.push(tags);
   }
 
   $("#tagsDelPost").append(htmlTag2);
   $("#tagsPost").val("");
-
-  // return htmlTag2;
 }
 
 function guardarPost() {
-  swal({
-    type: 'success',
-    title: 'Post Registrado Correctamente',
-    showConfirmButton: false,
-    timer: 1500
-  }).then((result) => {
-      location.href = "dashboard.html";
-  })
+
+  var titulo = $("#tituloPost").val()
+  var cuerpo = $("#cuerpoPost").val()
+
+
+  if (titulo === '' || cuerpo === '') {
+    swal({
+      type: 'error',
+      title: 'Oops...',
+      text: 'Debe especificar el titulo y el cuerpo del post!',
+    })
+    return;
+  }
+
+  var data = {
+    title: `${titulo}`,
+    body: `${cuerpo}`,
+    tags: listadoTags
+  }
+
+  fetch(direccionApi + "/post", {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem("blog_api_user_token")
+    }
+  }).then(response => {
+    console.log(response)
+    if (response.ok) {
+      swal({
+        type: 'success',
+        title: 'Post Registrado Correctamente',
+        showConfirmButton: false,
+        timer: 1500
+      }).then(() => {
+        location.href = "dashboard.html";
+      })
+    }
+  }).catch(error => {
+    alert('Error al Registrar el Post')
+    console.error('error', error)
+  });
 }

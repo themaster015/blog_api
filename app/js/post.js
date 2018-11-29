@@ -68,8 +68,14 @@ function getPost() {
     <div class="card border-primary mb-3">
       <div class="card-header bg-primary">
         <div class="row">
-          <i postid="{postId}" class="{likePost} fa-heart fa-lg mt-3 likedStar"  style="color:white" id="{likePostId}"></i> &nbsp 
-          <button class="btn btn-link" onclick="abrirInfoPost({postId})"><h4 style="color:white">{titulo}</h4></button>
+          <div class="col-sm-8">
+            <i postid="{postId}" class="{likePost} fa-heart fa-lg mt-3 likedStar" style="color:white; cursor: pointer;" id="{likePostId}"></i> &nbsp 
+            <button class="btn btn-link" onclick="abrirInfoPost({postId})"><h4 style="color:white">{titulo}</h4></button>
+          </div>
+          
+          <div class="col-sm-4">
+            <i class="fa fa-eye mt-3" style="color:white; float: right;" title="Cantidad de vistas"> {views} </i>
+          </div>          
         </div>
       </div>
 
@@ -87,21 +93,42 @@ function getPost() {
           </div>
 
           <div class="col-sm-6">
-            <div class="text-right">
-              <i class="fas fa-thumbs-up" style="color:blue"></i>
-              <p id="{likesCount}" style="color:blue">{likes} likes</p>
+            <div class="row" style="float: right;">
+              <div>
+                <i class="fas fa-thumbs-up ml-3" style="color:green"></i> &nbsp &nbsp
+                <p id="{likesCount}" style="color:green">{likes} likes &nbsp &nbsp</p>
+              </div>
+              <div>
+                <i class="fas fa-comments ml-4" style="color:green"></i>
+                <p id="{likesCount}" style="color:green">{coments} Coments</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="card-footer text-muted text-right">
-        Creado en fecha: {fechaCreado}
+      <div class="card-footer">
+        <div class="row">
+          <div class="col-sm-6">
+            <button class="btn btn-success btn-sm" type="button" data-toggle="collapse" data-target="#{comentarioId}" aria-expanded="false" aria-controls="{comentarioId}">Ver Comentarios</button>
+          </div>
+          <div class="col-sm-6 text-muted text-right">
+            Creado en fecha: {fechaCreado}
+          </div>
+        </div>        
+      </div>
+    </div>
+
+    <div class="collapse" id="{comentarioId}">
+      <div class="card card-body">
+        <button class="btn btn-primary"> <i class="fa fa-plus fa-lg"></i> Agregar </button>
+        {comentario}
       </div>
     </div>
 
     <hr>
   `
+
   fetch(direccionApi + "/post", obtenerHeader())
     .then(res => res.json())
     .then(response => {
@@ -118,6 +145,7 @@ function getPost() {
 
         var tag = getTags(post.tags);
         var fecha = getDatePost(post.createdAt);
+        var comentarios = getComents(post.coments)
 
         var item = itemPost.replace('{titulo}', post.title)
           .replace('{cuerpo}', cuerpo)
@@ -129,6 +157,12 @@ function getPost() {
           .replace('{postId}', `${post.id}`)
           .replace('{fechaCreado}', fecha)
           .replace('{userId}', post.userId)
+          .replace('{views}', post.views)
+          .replace('{coments}', post.comments)
+          .replace('{comentarioId}', `comentarioPost${post.id}`)
+          .replace('{comentarioId}', `comentarioPost${post.id}`)
+          .replace('{comentarioId}', `comentarioPost${post.id}`)
+          .replace('{comentario}', comentarios)
           .replace('{likesCount}', `likesCount${post.id}`);
 
         if (post.liked) {
@@ -164,4 +198,23 @@ function getTags(tags) {
   }
 
   return htmlTag2;
+}
+
+
+function getComents(coments) {
+
+  coments = ['Esto es Prueba', 'que genial'];
+
+  var htmlComent = `<p>{coment}</p>`
+  var htmlComent2 = '';
+  var listaComent = coments;
+  var comentario = ''
+
+  for (const coment of listaComent) {
+    comentario = htmlComent;
+    comentario = comentario.replace('{coment}', coment)
+    htmlComent2 += comentario;
+  }
+
+  return htmlComent2;
 }
