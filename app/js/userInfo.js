@@ -17,7 +17,7 @@ function getUserInfo() {
 
       $("#usuarioNombre").text(response.name);
       $("#email").text(response.email);
-      $("#fechaCreacion").text(getDatePost(response.createdAt));
+      $("#fechaCreacion").text(getDate(response.createdAt));
       $("#cantidadPost").text(response.posts);
 
     }).catch((error) => console.log(error));

@@ -1,40 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Información de Usuario</title>
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">       
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <script src="../assets/js/sweetalert2.all.min.js"></script>
   <script src="../assets/js/jquery-3.3.1.js"></script>
-  <script src="../app/js/constantes.js" ></script> 
+  <script src="../app/js/constantes.js"></script>
+  <script src="../app/js/postFunctions.js"></script>
   <script src="../app/js/postInfo.js"></script>
   <script src="../app/js/menu.js"></script>
 
 </head>
+
 <body>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <a class="navbar-brand" href="#">Blog Api</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+      aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item" >
+        <li class="nav-item">
           <a class="nav-link" id="btnListadoPost" href="javascript:;">Listado de Post</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" id="btnCrearPost" href="javascript:;">Crear Post</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Favoritos</a>
+          <a class="nav-link" id="btnListaUsuario" href="javascript:;">Listado de Usuarios</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="btnCerrarSecion" href="javascript:;">Cerrar Sesion</a>
-          </li>
+          <a class="nav-link" id="btnCerrarSecion" href="javascript:;">Cerrar Sesion</a>
+        </li>
       </ul>
     </div>
   </nav>
@@ -43,60 +52,69 @@
 
     <div class="jumbotron">
       <div class="container">
-       
+
 
       </div>
     </div>
 
     <div class="container">
-      <ul class="list-group" id="listaPost"></ul>       
+      <ul class="list-group" id="listaPost"></ul>
     </div>
 
   </main>
 
+  <div class="text-center">
+    <h1 class="display-3 mb-5">Información del Post</h1>  
+  </div>
+
   <div class="container">
 
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 offset-lg-3 offset-xl-3">
-    
-          <div class="card bg-light mb-3">
-           <div class="card-header text-primary">INFORMACION DEL POST</div>
-            <div class="card-body">
+      <div class="jumbotron">
+         
+        <div class="text-right">
+          <span id="postVista"></span><i class="fa fa-eye ml-1 mr-3" style="color:blueviolet"></i>
+          <span id="postLikes"></span><i class="fas fa-thumbs-up ml-1 mr-3" style="color:blueviolet"></i>
+          <span id="postComen"></span><i class="fas fa-comments ml-1" style="color:blueviolet"></i>
+          <p id="postUserInfo"></p>
+        </div> 
 
-              <form action="">
-                <div class="form-group">
-                  <label for="usuarioNombre">Nombre:</label>
-                 <b> <p id="usuarioNombre"></p></b>
-                </div>
-    
-                <div class="form-group">
-                  <label for="email">Email:</label>
-                  <b><p id="email"></p></b>
-                </div>
+        <h1 id="postTitulo" class="display-4"></h1>
+        <p class="lead" id="postBody"></p>
+        <div id="postTags" class="text-right"></div>
+        <hr class="my-4">
+        <div id="postComentarios"></div>
+        <div class="text-right">
+          <button type="button" class="btn btn-success" id="comentarPost"  data-toggle="modal" data-target="#exampleModalCenter">Comentar</button>
+          <button type="button" class="btn btn-primary" id="volverAtrasPostInfo">Volver Atras</button>
+        </div>
+      </div>
 
-                <div class="form-group">
-                  <label for="fechaCreacion">Fecha de Registro:</label>
-                  <b><p id="fechaCreacion"></p></b>
-                </div>
-
-                <div class="form-group">
-                  <label for="cantidadPost">Cantidad de Post:</label>
-                  <b><p id="cantidadPost"></p></b>
-                </div>
-                 
-                <div class="text-right">
-                  <button type="button" class="btn btn-primary ml-5" id="volverAtrasPostInfo">Volver Atras</button>
-                </div>
-              </form>
-    
-            </div>
+  </div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Comentario</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="comentarioDelPost">Exprese Su Pensamiento:</label>
+            <textarea class="form-control" id="comentarioDelPost" rows="3"></textarea>
           </div>
-    
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" id="aceptarComentario" class="btn btn-primary">Comentar</button>
         </div>
       </div>
     </div>
   </div>
 
 </body>
+
 </html>

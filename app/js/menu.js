@@ -14,6 +14,10 @@ $(document).ready(function () {
   $("#btnCerrarSecion").click(function () {
     cerrarSesion();
   });
+
+  $("#btnListaUsuario").click(function () {
+    listaUsuario();
+  });
 })
 
 function goDashboard() {
@@ -26,6 +30,10 @@ function goListadoPost() {
 
 function goCrearPost() {
   location.href = "crearPost.html";
+}
+
+function listaUsuario() {
+  location.href = "listadoUsuario.html";
 }
 
 function cerrarSesion() {

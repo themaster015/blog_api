@@ -6,6 +6,12 @@ $(document).ready(function () {
   $("#btnNuevoPost").click(function () {
     crearPost()
   });
+
+  
+  $("#btnListadousuarios").click(function () {
+    accederUsuarios()
+  });
+
 })
 
 function accederPost() {
@@ -14,4 +20,8 @@ function accederPost() {
 
 function crearPost() {
   location.href = "crearPost.html"
+}
+
+function accederUsuarios() {
+  location.href = "listadoUsuario.html"
 }

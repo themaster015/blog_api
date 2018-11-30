@@ -144,8 +144,8 @@ function getPost() {
         }
 
         var tag = getTags(post.tags);
-        var fecha = getDatePost(post.createdAt);
-        var comentarios = getComents(post.coments)
+        var fecha = getDate(post.createdAt);
+        // var comentarios = getComents(post.coments)
 
         var item = itemPost.replace('{titulo}', post.title)
           .replace('{cuerpo}', cuerpo)
@@ -162,7 +162,7 @@ function getPost() {
           .replace('{comentarioId}', `comentarioPost${post.id}`)
           .replace('{comentarioId}', `comentarioPost${post.id}`)
           .replace('{comentarioId}', `comentarioPost${post.id}`)
-          .replace('{comentario}', comentarios)
+          // .replace('{comentario}', comentarios)
           .replace('{likesCount}', `likesCount${post.id}`);
 
         if (post.liked) {
@@ -182,39 +182,4 @@ function getPost() {
       }
     })
     .catch((error) => console.log(error));
-}
-
-function getTags(tags) {
-
-  var htmlTag = `<span class="badge badge-pill badge-success">{tag}</span> &nbsp`
-  var htmlTag2 = '';
-  var listaTags = tags;
-  var tag = ''
-
-  for (const tags of listaTags) {
-    tag = htmlTag;
-    tag = tag.replace('{tag}', tags)
-    htmlTag2 += tag;
-  }
-
-  return htmlTag2;
-}
-
-
-function getComents(coments) {
-
-  coments = ['Esto es Prueba', 'que genial'];
-
-  var htmlComent = `<p>{coment}</p>`
-  var htmlComent2 = '';
-  var listaComent = coments;
-  var comentario = ''
-
-  for (const coment of listaComent) {
-    comentario = htmlComent;
-    comentario = comentario.replace('{coment}', coment)
-    htmlComent2 += comentario;
-  }
-
-  return htmlComent2;
 }
