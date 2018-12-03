@@ -13,7 +13,7 @@ $(document).ready(function () {
 
 
 function volverAtrasPostInfo() {
-  location.href="posts.html";
+  location.href = "posts.html";
 }
 
 
@@ -21,33 +21,33 @@ function obtenerInfoPost() {
   var postId = localStorage.getItem("blog_api_postId");
 
   fetch(direccionApi + `/post/${postId}`, obtenerHeader())
-  .then(res => res.json())
-  .then(response => { 
-    
-    var tags = getTags(response.tags);
+    .then(res => res.json())
+    .then(response => {
 
-    $("#postTitulo").text(response.title);
-    $("#postBody").text(response.body);
-    $("#postVista").text(parseInt(response.views));
-    $("#postLikes").text(parseInt(response.likes));
-    $("#postComen").text(parseInt(response.comments));    
-    $("#postUserInfo").text(`Creado Por: ${response.userName} (${response.userEmail})`)
-    $("#postTags").append(tags);
-  })
-  .catch((error) => console.log(error));
+      var tags = getTags(response.tags);
+
+      $("#postTitulo").text(response.title);
+      $("#postBody").text(response.body);
+      $("#postVista").text(parseInt(response.views));
+      $("#postLikes").text(parseInt(response.likes));
+      $("#postComen").text(parseInt(response.comments));
+      $("#postUserInfo").text(`Creado Por: ${response.userName} (${response.userEmail})`)
+      $("#postTags").append(tags);
+    })
+    .catch((error) => console.log(error));
 }
 
 function obtenerComentarios() {
   var postId = localStorage.getItem("blog_api_postId");
 
   fetch(direccionApi + `/post/${postId}/comment`, obtenerHeader())
-  .then(res => res.json())
-  .then(response => { 
-    console.log(response);
-    var comentarios = getComents(response);
-    $("#postComentarios").append(comentarios);
-  })
-  .catch((error) => console.log(error));
+    .then(res => res.json())
+    .then(response => {
+      console.log(response);
+      var comentarios = getComents(response);
+      $("#postComentarios").append(comentarios);
+    })
+    .catch((error) => console.log(error));
 }
 
 function comentarPost() {
@@ -67,11 +67,12 @@ function comentarPost() {
   }
 
   var postId = localStorage.getItem("blog_api_postId");
- 
-  fetch(direccionApi + `/post/${postId}/comment`, obtenerHeaderMethot('POST', data))
-  .then(response => { 
-    comentario.text('');  
-    console.log(response);
-  })
-  .catch((error) => console.log(error));
+
+  fetch(direccionApi + `/post/${postId}/comment`, obtenerHeaderMethot('POST', JSON.stringify(data)))
+    .then(response => {
+      //$("#modalComentarios").modal('hide');
+      $('.modal').removeClass('show');
+      location.href="postinfo.html";
+    })
+    .catch((error) => console.log(error));
 }

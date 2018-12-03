@@ -9,7 +9,14 @@ function login() {
   var password = $("#password").val();
 
   if (username === '' || password === '') {
-    alert('Debe introducir el usuario y la contraseña');
+
+    swal({
+      type: 'error',
+      title: 'Oops...',
+      text: 'Debe introducir el usuario y la contraseña!',
+    })
+
+    //alert('Debe introducir el usuario y la contraseña');
     return;
   }
 
