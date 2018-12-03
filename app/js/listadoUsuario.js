@@ -48,7 +48,7 @@ function getListadoUsuario() {
           var imagen = "user" + aleatorio;
         }
 
-        var fecha = getDate(usuario.createdAt);
+        var fecha = getFecha(usuario.createdAt);
         
         var item = plantilla.replace('{nombreUsuario}', usuario.name)
           .replace('{emailUsuario}', usuario.email)
@@ -64,19 +64,4 @@ function getListadoUsuario() {
 
 function numeroAleatorio(min, max) {
   return Math.round(Math.random() * (max - min) + min);
-}
-
-function getDate(DateTimeStamp) {
-
-  let date = new Date(DateTimeStamp);
-  var year = date.getFullYear();
-  var month = date.getMonth() + 1;
-  var day = date.getDate();
-  var hours = date.getHours();
-  var minutes = "0" + date.getMinutes();
-  var seconds = "0" + date.getSeconds();
-
-  var formattedTime = `${day}/${month}/${year} ${hours}:${minutes.substr(-2)}:${seconds.substr(-2)}`;
-
-  return formattedTime;
 }

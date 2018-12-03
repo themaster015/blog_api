@@ -26,11 +26,7 @@ function getComents(coments) {
 
   for (const coment of listaComent) {
     
-    var fecha = getDate(coment.createdAt);
-    // var fechaActual = new Date();
-    // var diff = fechaActual - fecha;
-    // console.log(diff/(1000*60*60*24));
-
+    var fecha = getFecha(coment.createdAt);
     comentario = htmlComent;
     comentario = comentario.replace('{coment}', coment.body)
     .replace('{usuarioInfo}', `<span class="text-muted"><i style="color: blue">${coment.userName}</i></span>`)
@@ -39,16 +35,4 @@ function getComents(coments) {
   }
 
   return htmlComent2;
-}
-
-function getDate(DateTimeStamp) {
-
-  let date = new Date(DateTimeStamp);
-  var year = date.getFullYear();
-  var month = date.getMonth() + 1;
-  var day = date.getDate();
-
-  var formattedTime = `${day}/${month}/${year}`;
-
-  return formattedTime;
 }

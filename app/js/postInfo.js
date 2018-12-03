@@ -43,7 +43,6 @@ function obtenerComentarios() {
   fetch(direccionApi + `/post/${postId}/comment`, obtenerHeader())
     .then(res => res.json())
     .then(response => {
-      console.log(response);
       var comentarios = getComents(response);
       $("#postComentarios").append(comentarios);
     })

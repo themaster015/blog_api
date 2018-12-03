@@ -110,7 +110,7 @@ function getPost() {
       <div class="card-footer">
         <div class="row">
           <div class="col-sm-6">
-            <button class="btn btn-success btn-sm" type="button" data-toggle="collapse" data-target="#{comentarioId}" aria-expanded="false" aria-controls="{comentarioId}">Ver Comentarios</button>
+            <button onclick="verComentarios({postId})" class="btn btn-success btn-sm" type="button" data-toggle="collapse" data-target="#{comentarioId}" aria-expanded="false" aria-controls="{comentarioId}">Ver Comentarios</button>
           </div>
           <div class="col-sm-6 text-muted text-right">
             Creado en fecha: {fechaCreado}
@@ -121,8 +121,14 @@ function getPost() {
 
     <div class="collapse" id="{comentarioId}">
       <div class="card card-body">
-        <button class="btn btn-primary"> <i class="fa fa-plus fa-lg"></i> Agregar </button>
-        {comentario}
+        <div id="detalle{comentarioId}"></div>
+        <div class="form-group">
+          <label for="comentarioDelPost{postId}">Deja tu Comentario:</label>
+          <textarea class="form-control" id="comentarioDelPost{postId}" rows="3"></textarea>
+        </div>
+        <div style="width:50 px">
+          <button class="btn btn-primary"> <i class="fa fa-plus fa-lg"></i> Comentar</button>
+        </div>
       </div>
     </div>
 
@@ -144,7 +150,7 @@ function getPost() {
         }
 
         var tag = getTags(post.tags);
-        var fecha = getDate(post.createdAt);
+        var fecha = getFechaHora(post.createdAt);
         // var comentarios = getComents(post.coments)
 
         var item = itemPost.replace('{titulo}', post.title)
@@ -155,10 +161,13 @@ function getPost() {
           .replace('{likePostId}', $.trim(`likePost${post.id}`))
           .replace('{postId}', `${post.id}`)
           .replace('{postId}', `${post.id}`)
+          .replace('{postId}', `${post.id}`)
+          .replace('{postId}', `${post.id}`)
           .replace('{fechaCreado}', fecha)
           .replace('{userId}', post.userId)
           .replace('{views}', post.views)
           .replace('{coments}', post.comments)
+          .replace('{comentarioId}', `comentarioPost${post.id}`)
           .replace('{comentarioId}', `comentarioPost${post.id}`)
           .replace('{comentarioId}', `comentarioPost${post.id}`)
           .replace('{comentarioId}', `comentarioPost${post.id}`)
@@ -182,4 +191,20 @@ function getPost() {
       }
     })
     .catch((error) => console.log(error));
+}
+
+
+function verComentarios(postId) {
+
+  var detalle = `detallecomentarioPost${postId}`;
+  console.log(detalle);
+
+  fetch(direccionApi + `/post/${postId}/comment`, obtenerHeader())
+  .then(res => res.json())
+  .then(response => {
+    var comentarios = getComents(response);
+    $(`#${detalle}`).text('');
+    $(`#${detalle}`).append(comentarios);
+  })
+  .catch((error) => console.log(error));
 }

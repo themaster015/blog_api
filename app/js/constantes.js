@@ -21,4 +21,22 @@ function obtenerHeaderMethot(metodo, body = {}) {
   }
 }
 
+function getFechaHora(DateTimeStamp) {
+  let date = new Date(DateTimeStamp);
+  var formattedTime = moment(date).format('MMMM DD YYYY, h:mm:ss a');
+  return formattedTime;
+}
+
+function getFecha(DateTimeStamp) {
+  let date = new Date(DateTimeStamp);
+  var formattedTime = moment(date).format('MMMM DD YYYY');
+  return formattedTime;
+}
+
+function getTiempoTranscurrido(DateTimeStamp) {
+  let date = new Date(DateTimeStamp);  
+  var formattedTime = moment(date, "YYYYMMDD").fromNow(); ///moment(date).format('MMMM DD YYYY, h:mm:ss a');
+  return formattedTime;
+}
+
 
