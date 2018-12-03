@@ -69,7 +69,6 @@ function comentarPost() {
 
   fetch(direccionApi + `/post/${postId}/comment`, obtenerHeaderMethot('POST', JSON.stringify(data)))
     .then(response => {
-      //$("#modalComentarios").modal('hide');
       $('.modal').removeClass('show');
       location.href="postinfo.html";
     })

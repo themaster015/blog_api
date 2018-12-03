@@ -40,3 +40,11 @@ function getTiempoTranscurrido(DateTimeStamp) {
 }
 
 
+function textoReplace(texto, valor, nuevoValor) {
+  while (texto.indexOf(valor) >= 0) {
+    texto = texto.replace(valor, nuevoValor);
+  }
+
+  return texto;
+}
+

@@ -26,7 +26,7 @@ function getComents(coments) {
 
   for (const coment of listaComent) {
     
-    var fecha = getFecha(coment.createdAt);
+    var fecha = getTiempoTranscurrido(coment.createdAt);
     comentario = htmlComent;
     comentario = comentario.replace('{coment}', coment.body)
     .replace('{usuarioInfo}', `<span class="text-muted"><i style="color: blue">${coment.userName}</i></span>`)
