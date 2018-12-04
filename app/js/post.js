@@ -25,7 +25,7 @@ function generarLike(postId) {
     .then(response => {
       if (response.ok) {
         $(`#likePost${postId}`).removeClass("far").addClass("fas");
-        reactualizarLikes(postId, 1);
+        // reactualizarLikes(postId, 1);
       }
     })
     .catch((error) => console.log(error));
@@ -36,7 +36,7 @@ function quitarLike(postId) {
     .then(response => {
       if (response.ok) {
         $(`#likePost${postId}`).removeClass("fas").addClass("far");
-        reactualizarLikes(postId, -1);
+        // reactualizarLikes(postId, -1);
       }
     }).catch((error) => console.log(error));
 }
@@ -74,7 +74,7 @@ function getPost() {
           </div>
           
           <div class="col-sm-4">
-            <i class="fa fa-eye mt-3" style="color:white; float: right;" title="Cantidad de vistas"> {views} </i>
+            <i class="fa fa-eye mt-3" style="color:white; float: right;" title="Cantidad de vistas"> <span id="autoView{postId}">{views}</span> </i>
           </div>          
         </div>
       </div>
@@ -96,11 +96,11 @@ function getPost() {
             <div class="row" style="float: right;">
               <div>
                 <i class="fas fa-thumbs-up ml-3" style="color:green"></i> &nbsp &nbsp
-                <p id="{likesCount}" style="color:green">{likes} likes &nbsp &nbsp</p>
+                <p id="{likesCount}" style="color:green"> <span id="autoLike{postId}">{likes}</span> likes &nbsp &nbsp</p>
               </div>
               <div>
                 <i class="fas fa-comments ml-4" style="color:green"></i>
-                <p id="{likesCount}" style="color:green">{coments} Coments</p>
+                <p id="{likesCount}" style="color:green"><span id="autoComent{postId}">{coments}</span> Coments</p>
               </div>
             </div>
           </div>
@@ -164,6 +164,9 @@ function getPost() {
           .replace('{postId}', `${post.id}`)
           .replace('{postId}', `${post.id}`)
           .replace('{postId}', `${post.id}`)
+          .replace('{postId}', `${post.id}`)
+          .replace('{postId}', `${post.id}`)
+          .replace('{postId}', `${post.id}`)
           .replace('{fechaCreado}', fecha)
           .replace('{userId}', post.userId)
           .replace('{views}', post.views)
@@ -184,9 +187,9 @@ function getPost() {
             .replace('{colorHeart}', '')
         }
 
-        if (tamanoPost > 150) {
+        // if (tamanoPost > 150) {
           lista.append(`<li>${item}</li>`);
-        }
+        //}
 
       }
     })
@@ -226,7 +229,7 @@ function comentarPost(postId) {
 
   fetch(direccionApi + `/post/${postId}/comment`, obtenerHeaderMethot('POST', JSON.stringify(data)))
     .then(response => {
-      $(`#comentarioDelPost${postId}`).val();
+      $(`#comentarioDelPost${postId}`).val("");
       verComentarios(postId);
     })
     .catch((error) => console.log(error));
