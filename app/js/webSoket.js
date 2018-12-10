@@ -27,19 +27,29 @@ function wsConnect(token) {
         $(`#autoView${data.postId}`).text(data.views);
         break;
       case "new-comment":
+        alertify.success('Nuevo comentario de: ' + data.userName );
         $(`#autoComent${data.postId}`).text(data.comments);
         break;
-      case "logged":
+      case "logged": 
+        agregarClaseConectado(data.userId);        
         for (var user of data.users) {
-          $(`#iconoUser${user.userId}`).addClass("text-success");
+          agregarClaseConectado(user.userId); 
         }
         break;
       case "user-connected":
-        $(`#iconoUser${data.userId}`).addClass("text-success");
+        agregarClaseConectado(data.userId); 
         break;
       case "disconnected":
-        $(`#iconoUser${data.userId}`).removeClass("text-success").addClass("text-muted");
+        quitarClaseConectado(data.userId)
         break;
     }
   };
+}
+
+function agregarClaseConectado(userId) {
+  $(`#iconoUser${userId}`).removeClass("text-muted").addClass("text-success");
+}
+
+function quitarClaseConectado(userId) {
+  $(`#iconoUser${userId}`).removeClass("text-success").addClass("text-muted");
 }
