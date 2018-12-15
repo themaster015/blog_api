@@ -2,7 +2,7 @@ function wsConnect(token) {
 
   // console.log("WS- connect ", token);
   var websocket = new WebSocket(`ws://68.183.27.173:8080/?token=${token}`);
-  
+
   websocket.onopen = function (evt) {
     console.log(evt)
   };
@@ -17,7 +17,7 @@ function wsConnect(token) {
 
   websocket.onmessage = function (evt) {
     var data = JSON.parse(evt.data);
-    console.log(data);
+    // console.log(data);
 
     switch (data.type) {
       case "likes":
@@ -27,19 +27,28 @@ function wsConnect(token) {
         $(`#autoView${data.postId}`).text(data.views);
         break;
       case "new-comment":
-        alertify.success('Nuevo comentario de: ' + data.userName );
+        alertify.success('Nuevo comentario de: ' + data.userName);
         $(`#autoComent${data.postId}`).text(data.comments);
         break;
-      case "logged": 
-        agregarClaseConectado(data.userId);        
+      case "logged":
+        agregarClaseConectado(data.userId);
         for (var user of data.users) {
-          agregarClaseConectado(user.userId); 
+          agregarClaseConectado(user.userId);
         }
         break;
       case "user-connected":
-        agregarClaseConectado(data.userId); 
+        var usuario = ''
+        if (data.useName === undefined) {
+          usuario = 'Usuario Sin Nombre'
+        } else {
+          usuario = data.userName;
+        }
+
+        alertify.success('usuario Conectado: ' + usuario);
+        agregarClaseConectado(data.userId);
         break;
       case "disconnected":
+        alertify.error('usuario Desconectado: ' + data.userName);
         quitarClaseConectado(data.userId)
         break;
     }
